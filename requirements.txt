@@ -4,6 +4,6 @@ langchain-google-genai
 langchain-chroma
 langchain-community
 langchain-core
-chromadb
+chromadb==0.3.29
 pysqlite3-binary
 db-sqlite3
