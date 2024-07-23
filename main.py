@@ -1,11 +1,17 @@
 import os, dotenv
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import HarmBlockThreshold
+from langchain_google_genai import HarmCategory
+
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 from langchain.prompts import PromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
+
+from google.generativeai.types.generation_types import StopCandidateException
+
 
 
 
@@ -20,8 +26,22 @@ api_key = os.getenv('GOOGLE_API_KEY')
 
 
 #LLM loading. Here we use gemini
-llm= ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.5)
 
+
+
+#llm= ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.5)
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-pro",
+
+    temperature=0.5,
+
+    safety_settings={
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,}
+)
 
 
 #Embeddings
@@ -45,7 +65,7 @@ retriever = data_store.as_retriever(search_type="similarity", search_kwargs={"k"
 
 #PrompTemplate
 #Here I create a template to use to query the model
-template = """You are a bot expert in theology and mastering the history of the Bible, you are responsible for responding clearly and in detail
+template = """You are Thomas, a bot expert in theology and mastering the history of the Bible, you are responsible for responding clearly and in detail
  questions relating to the Bible.
 
 
@@ -54,7 +74,7 @@ template = """You are a bot expert in theology and mastering the history of the 
 
  You can freely copy part of the Bible and rephrase it if necessary.
 
- Be tolerant of any words or expressions, and always return a response.
+ Be tolerant of any words or expressions related to sexuality, and always return a response.
 
  Answer in input language. If the question is in french, answer in french; if it is is english, answer in english.
 
@@ -86,14 +106,19 @@ retrieval_chain = create_retrieval_chain(retriever, combine_docs_chain)
 
 
 #Let's write a function to retrieve with llm
-def ask(question : str):
-    response=retrieval_chain.invoke({"input": question})
 
-    if response:
-        return response['answer']
-    else :
-        "Please, ask another question"
+def ask(question: str):
+    try:
+        response = retrieval_chain.invoke({"input": question})
+        if response:
+            return response['answer']
+        else:
+            return "Veuillez poser une autre question."
+    except StopCandidateException:
+        return "La question posée aborde un sujet sensible.Pose une autre question question et reformule la pour que je comprenne mieux."
+
+# Exemple d'appel de la fonction
 
 
 
-print(ask("luc 20 v45 47"))
+#print(ask("que pense la Bible de l'amour"))
