@@ -4,6 +4,7 @@ numpy
 langchain
 langchain-google-genai
 langchain-community
+langchain-chroma
 langchain-core
 chroma
 chromadb==0.3.29
