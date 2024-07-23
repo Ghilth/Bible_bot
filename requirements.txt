@@ -1,9 +1,8 @@
-streamlit==1.36.0
-langchain==0.1.20
-langchain-google-genai==1.0.3
-langchain-chroma==0.1.1
-langchain-community==0.0.38
-langchain-core==0.1.52
-chromadb==0.5.0
-pypdf==4.2.0
+streamlit
+langchain
+langchain-google-genai
+langchain-chroma
+langchain-community
+langchain-core
+chromadb
 sqlite3
