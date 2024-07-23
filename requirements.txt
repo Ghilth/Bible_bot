@@ -3,6 +3,7 @@ pillow
 numpy
 langchain
 langchain-google-genai
+langchain_chroma
 langchain-community
 langchain-core
 chroma
