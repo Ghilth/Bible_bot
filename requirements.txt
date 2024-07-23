@@ -7,3 +7,4 @@ langchain-core
 chromadb
 pysqlite3-binary
 db-sqlite3
+sqlite3
