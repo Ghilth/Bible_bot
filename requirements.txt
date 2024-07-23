@@ -12,4 +12,4 @@ pypdf
 numpy
 pandas
 db-sqlite3
-pysqlite3-binary
+sqlite3 == 3.35.0
