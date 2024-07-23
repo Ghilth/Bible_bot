@@ -7,7 +7,7 @@ langchain-community
 langchain-chroma
 langchain-core
 chroma
-chromadb==0.3.29
+chromadb
 pypdf
 numpy
 pandas
