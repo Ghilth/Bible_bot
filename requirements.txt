@@ -1,6 +1,5 @@
 streamlit
-pillow
-numpy
+pysqlite3-binary
 langchain
 langchain-google-genai
 langchain-community
@@ -8,8 +7,4 @@ langchain-core
 langchain_chroma
 chroma
 chromadb
-pypdf
-numpy
-pandas
-db-sqlite3
-pysqlite3-binary
+
