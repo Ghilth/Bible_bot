@@ -4,10 +4,9 @@ numpy
 langchain
 langchain-google-genai
 langchain-community
-langchain-chroma
 langchain-core
 chroma
-chromadb
+chromadb==0.3.29
 pypdf
 numpy
 pandas
