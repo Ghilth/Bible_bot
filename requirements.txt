@@ -5,6 +5,7 @@ langchain
 langchain-google-genai
 langchain-community
 langchain-core
+langchain_chroma
 chroma
 chromadb==0.3.29
 pypdf
