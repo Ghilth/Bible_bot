@@ -83,7 +83,7 @@ if st.button("Envoyer"):
         add_message(user_input, is_user=True)  # Ajouter le message de l'utilisateur
         response = ask(user_input)
         add_message(response, is_user=False)   # Ajouter la réponse du chatbot
-        st.experimental_rerun()  # Recharger la page pour afficher les nouveaux messages
+        st.rerun()  # Recharger la page pour afficher les nouveaux messages
     else:
         st.write("Autre chose à me demander ? Pose ta question.")
 
